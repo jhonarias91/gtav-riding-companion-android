@@ -24,9 +24,15 @@ data class HelloDto(
 @Serializable
 data class PairRequestDto(val pin: String, val clientName: String)
 
+@Serializable
+data class PairIdRequestDto(val pin: String, val clientName: String, val clientId: String)
+
 /** Pairing from the console QR: the bridge's one-time key instead of the typed PIN. */
 @Serializable
 data class PairKeyRequestDto(val pairingKey: String, val clientName: String)
+
+@Serializable
+data class PairKeyIdRequestDto(val pairingKey: String, val clientName: String, val clientId: String)
 
 @Serializable
 data class PairResponseDto(val token: String, val expiresAtUtc: String, val bridgeId: String)

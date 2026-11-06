@@ -22,7 +22,7 @@
     <string name="help_routes_browse_title">Explorar recorridos</string>
     <string name="help_routes_browse_body">Anterior y Siguiente cambian el recorrido que estás previsualizando. Explorar no lo inicia. El recorrido activo se muestra por separado hasta que apliques una selección.</string>
     <string name="help_routes_pc_preview_title">Vista previa en el PC</string>
-    <string name="help_routes_pc_preview_body">Abre el selector de recorridos del juego (si está cerrado) y lo lleva a este recorrido, para ver su mapa y su perfil en el PC. No aplica el recorrido: para eso usa Aplicar recorrido. Si mueves el selector desde el PC, sustituye esta vista previa.</string>
+    <string name="help_routes_pc_preview_body">Abre o actualiza el selector de recorridos del juego cuando está disponible. Los cambios hechos desde el PC pueden sustituir esta vista previa. Previsualizar no aplica el recorrido.</string>
     <string name="help_routes_apply_title">Aplicar recorrido</string>
     <string name="help_routes_apply_body">Carga el recorrido elegido en GTBike V. El juego puede trasladar al ciclista, guardar la actividad anterior, reiniciar los totales, crear bots del recorrido y activar el piloto automático. Detente antes de aplicarlo. Con un entrenamiento en curso, la app te avisa antes: igual que en el menú del mod, ese entrenamiento vuelve a empezar desde su cuenta atrás en el nuevo recorrido.</string>
     <string name="help_routes_loop_title">Recorrido circular</string>
@@ -117,6 +117,8 @@
     <string name="help_multiplayer_join_body">Solicita al mod unirse al recorrido con más ciclistas conectados. Primero debes salir del recorrido actual. No permite elegir un ciclista concreto ni envía una invitación.</string>
     <string name="help_advanced_bots_title">Bots del recorrido</string>
     <string name="help_advanced_bots_body">Configura las definiciones compatibles que usa el mod al crear un grupo del recorrido. Estos bots son distintos de los ciclistas del tráfico ambiental. Un cambio guardado puede aplicarse solo al crear el siguiente grupo.</string>
+    <string name="help_mod_config_options_title">Opciones del juego</string>
+    <string name="help_mod_config_options_body">Ajustes del archivo de configuración de GTBike V (tráfico, bots del recorrido, público animando, puntos de paso, capturas, menú, reloj, depuración, origen GPS, telemetría, multijugador). GTBike V reescribe ese archivo mientras está abierto, así que solo se cambian con GTA V cerrado y se aplican la próxima vez que inicie el juego. Antes de cada cambio se guarda una copia.</string>
     <string name="help_advanced_traffic_title">Ciclistas del tráfico</string>
     <string name="help_advanced_traffic_body">Configura la sustitución de parte de los vehículos del tráfico por bicicletas y los comportamientos compatibles del mod. No es un control general de densidad del tráfico. Algunos cambios requieren recargar el script del juego.</string>
     <string name="help_settings_apply_mode_title">Cuándo se aplica un cambio</string>

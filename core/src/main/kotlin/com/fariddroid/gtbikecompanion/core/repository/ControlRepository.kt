@@ -3,6 +3,7 @@ package com.fariddroid.gtbikecompanion.core.repository
 import com.fariddroid.gtbikecompanion.core.model.ActivityDetail
 import com.fariddroid.gtbikecompanion.core.model.BridgeInfo
 import com.fariddroid.gtbikecompanion.core.model.GameMap
+import com.fariddroid.gtbikecompanion.core.model.GameOptionsDoc
 import com.fariddroid.gtbikecompanion.core.model.RidersBoard
 import com.fariddroid.gtbikecompanion.core.model.ActivityPage
 import com.fariddroid.gtbikecompanion.core.model.Command
@@ -50,6 +51,12 @@ interface ControlRepository {
 
     /** P9: identity and versions for diagnostics. */
     suspend fun bridgeInfo(): Outcome<BridgeInfo>
+
+    /** P15: GTBike V game options from GTBikeVConfig.ini (editable only with GTA V closed). */
+    suspend fun gameOptions(): Outcome<GameOptionsDoc> = Outcome.Failure("PHASE_NOT_AVAILABLE")
+
+    /** P15: saves the changed options (wire name -> value, see GameOptionRules.changes). Never retried automatically. */
+    suspend fun saveGameOptions(revision: String, changes: Map<String, Any>): Outcome<GameOptionsDoc> = Outcome.Failure("PHASE_NOT_AVAILABLE")
 
     /** [adapterInstanceId] comes from the snapshot the user acted on; a restarted adapter rejects it. */
     suspend fun submit(command: Command, adapterInstanceId: String): Outcome<Operation>

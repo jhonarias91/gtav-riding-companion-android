@@ -54,6 +54,7 @@ fun MoreScreen(
     onOpenHelpTopics: () -> Unit,
     onOpenConnection: () -> Unit = {},
     onOpenPcSettings: () -> Unit = {},
+    onOpenGameOptions: () -> Unit = {},
     onOpenDevices: () -> Unit = {},
     onOpenActivities: () -> Unit = {},
     onOpenRiders: () -> Unit = {},
@@ -73,6 +74,7 @@ fun MoreScreen(
 
         SectionCard(stringResource(R.string.more_section_pc), help = HelpTopic.CONNECTION_STATUS) {
             LinkRow(stringResource(R.string.more_pc_settings), onOpenPcSettings, "openPcSettings")
+            LinkRow(stringResource(R.string.more_game_options), onOpenGameOptions, "openGameOptions")
             LinkRow(stringResource(R.string.more_devices), onOpenDevices, "openDevices")
             LinkRow(stringResource(R.string.more_activities), onOpenActivities, "openActivities")
             LinkRow(stringResource(R.string.more_riders), onOpenRiders, "openRiders")

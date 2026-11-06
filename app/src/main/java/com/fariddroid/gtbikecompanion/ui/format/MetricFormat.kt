@@ -112,5 +112,6 @@ fun reasonText(code: String?): Int = when (code) {
     "SAVE_TOO_SHORT" -> R.string.reason_save_too_short
     "FIT_INVALID" -> R.string.reason_fit_invalid
     "ASSET_UNAVAILABLE" -> R.string.reason_asset_unavailable
+    "GAME_RUNNING" -> R.string.reason_game_running
     else -> R.string.reason_unknown
 }

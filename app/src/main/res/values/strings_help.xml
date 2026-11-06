@@ -22,7 +22,7 @@
     <string name="help_routes_browse_title">Browse routes</string>
     <string name="help_routes_browse_body">Previous and Next change the route you are previewing. Browsing does not start that route. The active route remains shown separately until you apply a selection.</string>
     <string name="help_routes_pc_preview_title">Preview on PC</string>
-    <string name="help_routes_pc_preview_body">Opens the route selector in the game (if it is closed) and moves it to this route, so you can see its map and profile on the PC. It does not apply the route: use Apply route for that. Moving the selector on the PC replaces this preview.</string>
+    <string name="help_routes_pc_preview_body">Opens or updates the route selector in the game when supported. Other changes made on the PC can replace this preview. Previewing does not apply the route.</string>
     <string name="help_routes_apply_title">Apply route</string>
     <string name="help_routes_apply_body">Loads the chosen route in GTBike V. The game may move your rider, save the previous activity, reset totals, create route bots and turn on autopilot. Stop before applying. With a workout in progress, the app warns you first: as in the mod menu, that workout starts again from its countdown on the new route.</string>
     <string name="help_routes_loop_title">Loop route</string>
@@ -117,6 +117,8 @@
     <string name="help_multiplayer_join_body">Asks the mod to join the route with the most connected riders. You must first leave your current route. This does not select a specific rider or send an invitation.</string>
     <string name="help_advanced_bots_title">Route bots</string>
     <string name="help_advanced_bots_body">Controls supported bot definitions used when the mod creates a route group. These bots are different from ambient traffic cyclists. A saved change may apply only when the next group is created.</string>
+    <string name="help_mod_config_options_title">Game options</string>
+    <string name="help_mod_config_options_body">GTBike V settings from its configuration file (traffic, route bots, cheering crowds, waypoints, screenshots, menu, clock, debug, GPS origin, telemetry, multiplayer). GTBike V rewrites that file while it runs, so they can be changed only with GTA V closed; they apply the next time the game starts. A backup is kept before each change.</string>
     <string name="help_advanced_traffic_title">Traffic cyclists</string>
     <string name="help_advanced_traffic_body">Configures the mod\'s replacement of some traffic vehicles with bicycles and its supported behaviour presets. It is not a general traffic-density control. Some changes require the game script to reload.</string>
     <string name="help_settings_apply_mode_title">When a change applies</string>

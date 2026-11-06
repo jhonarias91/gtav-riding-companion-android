@@ -13,6 +13,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.fariddroid.gtbikecompanion.bridge.PcEndpoint
 import java.security.KeyStore
 import java.time.Instant
+import java.util.UUID
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
@@ -79,6 +80,11 @@ class PairingStore @Inject constructor(
     @PairingStoreQualifier private val store: DataStore<Preferences>,
     private val vault: KeystoreTokenVault,
 ) {
+    /** Random per-installation ID, kept when the user forgets a PC and excluded from Android backup. */
+    suspend fun clientId(): String = store.edit { preferences ->
+        if (preferences[CLIENT_ID] == null) preferences[CLIENT_ID] = UUID.randomUUID().toString().replace("-", "")
+    }[CLIENT_ID]!!
+
     suspend fun load(): PairedPc? {
         val p = store.data.first()
         val host = p[HOST] ?: return null
@@ -109,7 +115,11 @@ class PairingStore @Inject constructor(
     }
 
     suspend fun clear() {
-        store.edit { it.clear() }
+        store.edit {
+            val clientId = it[CLIENT_ID]
+            it.clear()
+            if (clientId != null) it[CLIENT_ID] = clientId
+        }
     }
 
     private companion object {
@@ -121,5 +131,6 @@ class PairingStore @Inject constructor(
         val IV = stringPreferencesKey("token_iv")
         val TOKEN = stringPreferencesKey("token_sealed")
         val EXPIRES_AT = stringPreferencesKey("token_expires_at")
+        val CLIENT_ID = stringPreferencesKey("client_id")
     }
 }

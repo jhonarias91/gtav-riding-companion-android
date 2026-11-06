@@ -13,6 +13,7 @@ import com.fariddroid.gtbikecompanion.core.demo.DemoTelemetryRepository
 import com.fariddroid.gtbikecompanion.core.model.ActivityDetail
 import com.fariddroid.gtbikecompanion.core.model.BridgeInfo
 import com.fariddroid.gtbikecompanion.core.model.GameMap
+import com.fariddroid.gtbikecompanion.core.model.GameOptionsDoc
 import com.fariddroid.gtbikecompanion.core.model.RidersBoard
 import com.fariddroid.gtbikecompanion.core.model.ActivityPage
 import com.fariddroid.gtbikecompanion.core.model.Command
@@ -105,7 +106,7 @@ class ConnectionManager @Inject constructor(
 
     /** Step 2: after the user confirmed [identity] matches the PC console, send the PIN. */
     suspend fun pair(identity: BridgeIdentity, pin: String, clientName: String): Outcome<Unit> =
-        complete(identity) { it.pair(pin, clientName) }
+        complete(identity) { client, id -> client.pair(pin, clientName, id) }
 
     /**
      * Pairing from the console QR, with nothing typed: tries each address the PC listed, checks that the bridge that
@@ -123,21 +124,23 @@ class ConnectionManager @Inject constructor(
                 }
             }
             if (identity.bridgeId != qr.bridgeId) return Outcome.Failure("BRIDGE_CHANGED")
-            val result = complete(identity) { it.pairWithKey(qr.pairingKey, clientName) }
+            val result = complete(identity) { client, id -> client.pairWithKey(qr.pairingKey, clientName, id) }
             // The key changes after every pairing: an old QR (photo, scrolled console) is simply used up.
             return if (result is Outcome.Failure && result.code == "PAIRING_PIN_INVALID") Outcome.Failure("QR_USED") else result
         }
         return unreachable ?: Outcome.Failure("ADDRESS_INVALID")
     }
 
-    private suspend fun complete(identity: BridgeIdentity, request: suspend (BridgeClient) -> Outcome<PairResponseDto>): Outcome<Unit> {
+    private suspend fun complete(identity: BridgeIdentity, request: suspend (BridgeClient, String?) -> Outcome<PairResponseDto>): Outcome<Unit> {
         val client = BridgeClient(identity.endpoint, token = { null })
         // Same bridge as the one the user verified; another process on that address is refused.
         when (val again = client.hello()) {
             is Outcome.Failure -> return again
             is Outcome.Success -> if (again.value.bridgeId != identity.bridgeId) return Outcome.Failure("BRIDGE_CHANGED")
         }
-        return when (val result = request(client)) {
+        // API minor 11 accepts a stable random app ID. Older bridges keep the original request shape.
+        val clientId = if (identity.apiMinor >= 11) store.clientId() else null
+        return when (val result = request(client, clientId)) {
             is Outcome.Failure -> result
             is Outcome.Success -> {
                 if (result.value.bridgeId != identity.bridgeId) return Outcome.Failure("BRIDGE_CHANGED")
@@ -221,6 +224,8 @@ class ActiveControlRepository @Inject constructor(
     override suspend fun mapImage(assetId: String): Outcome<ByteArray> = current.mapImage(assetId)
     override suspend fun riders(): Outcome<RidersBoard> = current.riders()
     override suspend fun bridgeInfo(): Outcome<BridgeInfo> = current.bridgeInfo()
+    override suspend fun gameOptions(): Outcome<GameOptionsDoc> = current.gameOptions()
+    override suspend fun saveGameOptions(revision: String, changes: Map<String, Any>): Outcome<GameOptionsDoc> = current.saveGameOptions(revision, changes)
     override suspend fun submit(command: Command, adapterInstanceId: String): Outcome<Operation> = current.submit(command, adapterInstanceId)
     override suspend fun operation(requestId: String): Outcome<Operation> = current.operation(requestId)
 }

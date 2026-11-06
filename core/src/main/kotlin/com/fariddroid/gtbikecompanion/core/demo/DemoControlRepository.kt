@@ -1,6 +1,10 @@
 package com.fariddroid.gtbikecompanion.core.demo
 
 import com.fariddroid.gtbikecompanion.core.model.ActivityDetail
+import com.fariddroid.gtbikecompanion.core.model.BotType
+import com.fariddroid.gtbikecompanion.core.model.GameOptions
+import com.fariddroid.gtbikecompanion.core.model.GameOptionsDoc
+import com.fariddroid.gtbikecompanion.core.model.TrafficStyle
 import com.fariddroid.gtbikecompanion.core.model.ActivityItem
 import com.fariddroid.gtbikecompanion.core.model.ActivityPage
 import com.fariddroid.gtbikecompanion.core.model.BoolSetting
@@ -154,6 +158,14 @@ class DemoControlRepository : ControlRepository {
     )
 
     override suspend fun bridgeInfo(): Outcome<BridgeInfo> = Outcome.Failure(DEMO)
+
+    /** Sample of what a PC shows; read-only in demo mode. */
+    override suspend fun gameOptions(): Outcome<GameOptionsDoc> {
+        val defaults = GameOptions(50, TrafficStyle.NORMAL, true, 6, 50, listOf(BotType.COMPANION, BotType.RANDOM, BotType.RANDOM), 1, "FFADFF2F", 20, 0.7, 5, 0, true, true, false, 3, -19.10637, -169.871, true, true)
+        return Outcome.Success(GameOptionsDoc(available = true, reasonCode = DEMO, revision = null, gameRunning = false, editable = false, options = defaults, defaults = defaults))
+    }
+
+    override suspend fun saveGameOptions(revision: String, changes: Map<String, Any>): Outcome<GameOptionsDoc> = Outcome.Failure(DEMO)
 
     override suspend fun submit(command: Command, adapterInstanceId: String): Outcome<Operation> = Outcome.Failure(DEMO)
     override suspend fun operation(requestId: String): Outcome<Operation> = Outcome.Failure("NOT_FOUND")

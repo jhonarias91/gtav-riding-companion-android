@@ -33,6 +33,7 @@ import com.fariddroid.gtbikecompanion.feature.more.HelpTopicsScreen
 import com.fariddroid.gtbikecompanion.feature.more.MoreScreen
 import com.fariddroid.gtbikecompanion.feature.ride.RideRoute
 import com.fariddroid.gtbikecompanion.feature.routes.RoutesRoute
+import com.fariddroid.gtbikecompanion.feature.options.GameOptionsRoute
 import com.fariddroid.gtbikecompanion.feature.activities.ActivitiesRoute
 import com.fariddroid.gtbikecompanion.feature.devices.DevicesRoute
 import com.fariddroid.gtbikecompanion.feature.devices.PhoneScanRoute
@@ -49,6 +50,7 @@ object Routes {
     const val HELP_TOPICS = "help_topics"
     const val ROUTES = "routes"
     const val PC_SETTINGS = "pc_settings"
+    const val GAME_OPTIONS = "gameOptions"
     const val TRAINING = "training"
     const val DEVICES = "devices"
     const val PHONE_SCAN = "phone_scan"
@@ -116,6 +118,7 @@ fun CompanionRoot(appViewModel: AppViewModel = hiltViewModel()) {
                 composable(Routes.DIAGNOSTICS) { DiagnosticsRoute() }
                 composable(Routes.ROUTES) { RoutesRoute() }
                 composable(Routes.PC_SETTINGS) { PcSettingsRoute() }
+                composable(Routes.GAME_OPTIONS) { GameOptionsRoute() }
                 composable(Routes.MORE) {
                     MoreScreen(
                         settings = settings,
@@ -124,6 +127,7 @@ fun CompanionRoot(appViewModel: AppViewModel = hiltViewModel()) {
                         onOpenHelpTopics = { nav.navigate(Routes.HELP_TOPICS) },
                         onOpenConnection = { nav.navigate(Routes.CONNECT) },
                         onOpenPcSettings = { nav.navigate(Routes.PC_SETTINGS) },
+                        onOpenGameOptions = { nav.navigate(Routes.GAME_OPTIONS) },
                         onOpenDevices = { nav.navigate(Routes.DEVICES) },
                         onOpenActivities = { nav.navigate(Routes.ACTIVITIES) },
                         onOpenRiders = { nav.navigate(Routes.RIDERS) },

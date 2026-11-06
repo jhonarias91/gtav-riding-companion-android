@@ -19,8 +19,8 @@ android {
         applicationId = "com.fariddroid.gtbikecompanion"
         minSdk = 26
         targetSdk = 36
-        versionCode = 7
-        versionName = "0.6.0-p13"
+        versionCode = 9
+        versionName = "0.7.0-p15"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

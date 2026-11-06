@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- P15: GTBike V game options (GTBikeVConfig.ini allowlist through the bridge). -->
+<resources>
+    <string name="more_game_options">Game options</string>
+    <string name="options_title">Game options</string>
+    <string name="options_intro">GTBike V settings from its configuration file on the PC (gtbikev.com → Configuration). GTBike V rewrites that file while GTA V runs, so these change only with the game closed and apply the next time it starts. Weight, FTP, difficulty, Road Feel, bike and character change live in Profile and ride.</string>
+    <string name="options_game_running">GTA V is running on the PC. Close the game to change these options (GTBike V would overwrite them). They apply the next time it starts.</string>
+    <string name="options_game_closed">GTA V is closed: you can change these options. They apply the next time you start the game. A backup is kept on the PC.</string>
+    <string name="options_unsaved">Unsaved changes. Tap Save; they apply the next time you start GTA V.</string>
+    <string name="options_file_missing">GTBike V\'s configuration file was not found on the PC. Start GTA V with GTBike V once so it creates it.</string>
+    <string name="options_bridge_too_old">The PC app is older than this phone app. Update GTAV Riding Companion on the PC to change game options.</string>
+    <string name="options_conflict">The file changed on the PC since it was loaded. Tap Discard to reload it, then make your changes again.</string>
+    <string name="options_nothing_changed">Nothing changed.</string>
+    <string name="options_saving">Saving…</string>
+    <string name="options_defaults">Restore defaults</string>
+    <plurals name="options_saved">
+        <item quantity="one">%1$d option saved. It applies the next time you start GTA V.</item>
+        <item quantity="other">%1$d options saved. They apply the next time you start GTA V.</item>
+    </plurals>
+    <string name="options_traffic">Traffic</string>
+    <string name="options_traffic_percent">Cyclists instead of cars</string>
+    <string name="options_traffic_style">Cyclists\' riding style</string>
+    <string name="options_style_normal">Normal</string>
+    <string name="options_style_aggressive">Aggressive</string>
+    <string name="options_style_breaks_laws">Breaks traffic laws</string>
+    <string name="options_traffic_hint">100% shows no cars; 0% leaves the traffic as GTA V makes it.</string>
+    <string name="options_crowds">Cheering crowds</string>
+    <string name="options_crowds_enabled">Fans cheer on climbs</string>
+    <string name="options_crowds_slope">On climbs steeper than</string>
+    <string name="options_crowds_amount">Maximum fans</string>
+    <string name="options_bots">Route bots</string>
+    <plurals name="options_bots_total">
+        <item quantity="one">%1$d bot of %2$d</item>
+        <item quantity="other">%1$d bots of %2$d</item>
+    </plurals>
+    <string name="options_bot_random">Random</string>
+    <string name="options_bot_companion">Companion (blue)</string>
+    <string name="options_bot_climber">Climber (orange)</string>
+    <string name="options_bot_sprinter">Sprinter (brown)</string>
+    <string name="options_bot_time_trialer">Time trialer (purple)</string>
+    <string name="options_bot_add">Add a %1$s bot</string>
+    <string name="options_bot_remove">Remove a %1$s bot</string>
+    <string name="options_bots_hint">Riders that join you on a route, up to 5. Set them all to 0 for no bots.</string>
+    <string name="options_riding">Riding</string>
+    <string name="options_defensive">Self-defence</string>
+    <string name="options_defensive_passive">Passive</string>
+    <string name="options_defensive_defensive">Defensive</string>
+    <string name="options_defensive_aggressive">Aggressive</string>
+    <string name="options_defensive_hint">Defensive: anyone aggressive close by dies. Aggressive: anyone too close who is not on a bike dies or their vehicle explodes.</string>
+    <string name="options_fine_steering">Key steering sensitivity</string>
+    <string name="options_fine_steering_hint">For the A and D steering keys on the PC. 1 steers fully.</string>
+    <string name="options_waypoints">Route waypoints</string>
+    <string name="options_waypoint_color">Colour</string>
+    <string name="options_color">Colour %1$s</string>
+    <string name="options_color_selected">Colour %1$s, selected</string>
+    <string name="options_waypoint_radius">Size</string>
+    <string name="options_waypoint_hint">Size 0 hides them. A route\'s own settings take precedence.</string>
+    <string name="options_screenshots">Screenshots</string>
+    <string name="options_screenshot_km">Automatic screenshot every</string>
+    <string name="options_screenshot_offset">Screen X offset (px)</string>
+    <string name="options_screenshot_hint">Use the offset with several monitors when GTA V is not on the main one: the main screen\'s width, or negative if the game screen is to its left.</string>
+    <string name="options_menu_screen">Menu and screen</string>
+    <string name="options_menu_auto_open">Open the mod menu when you stop</string>
+    <string name="options_show_clock">Show a clock when the menu is hidden</string>
+    <string name="options_debug_window">Show the debug panels</string>
+    <string name="options_log_level">Log detail</string>
+    <string name="options_log_hint">3 is the default (Info). For crash reports use 4 or 5 and send GTBike V\'s log files.</string>
+    <string name="options_gps">GPS origin for FIT files</string>
+    <string name="options_gps_lat">Latitude</string>
+    <string name="options_gps_lon">Longitude</string>
+    <string name="options_gps_hint">Real-world point that matches the centre of the GTA map in your FIT files. The default is a small island in the Pacific.</string>
+    <string name="options_network">Network</string>
+    <string name="options_telemetry">Send anonymous usage data to GTBike V</string>
+    <string name="options_multiplayer">Connect to the GTBike V multiplayer server</string>
+    <string name="options_multiplayer_hint">Turning multiplayer back on uses the official GTBike V server.</string>
+    <string name="reason_game_running">Close GTA V on the PC first.</string>
+</resources>

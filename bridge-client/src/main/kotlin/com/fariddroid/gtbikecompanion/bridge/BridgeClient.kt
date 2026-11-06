@@ -5,6 +5,7 @@ import com.fariddroid.gtbikecompanion.core.model.ActivityPage
 import com.fariddroid.gtbikecompanion.core.model.BridgeInfo
 import com.fariddroid.gtbikecompanion.core.model.Capability
 import com.fariddroid.gtbikecompanion.core.model.GameMap
+import com.fariddroid.gtbikecompanion.core.model.GameOptionsDoc
 import com.fariddroid.gtbikecompanion.core.model.RidersBoard
 import com.fariddroid.gtbikecompanion.core.model.DeviceRoles
 import com.fariddroid.gtbikecompanion.core.model.FitFile
@@ -31,6 +32,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
 import okhttp3.HttpUrl
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -76,11 +78,15 @@ class BridgeClient(
 
     suspend fun hello(): Outcome<HelloDto> = get("hello", HelloDto.serializer(), auth = false)
 
-    suspend fun pair(pin: String, clientName: String): Outcome<PairResponseDto> =
-        post("pair", json.encodeToString(PairRequestDto.serializer(), PairRequestDto(pin, clientName)), PairResponseDto.serializer(), auth = false)
+    suspend fun pair(pin: String, clientName: String, clientId: String? = null): Outcome<PairResponseDto> =
+        post("pair", if (clientId == null) json.encodeToString(PairRequestDto.serializer(), PairRequestDto(pin, clientName))
+            else json.encodeToString(PairIdRequestDto.serializer(), PairIdRequestDto(pin, clientName, clientId)),
+            PairResponseDto.serializer(), auth = false)
 
-    suspend fun pairWithKey(pairingKey: String, clientName: String): Outcome<PairResponseDto> =
-        post("pair", json.encodeToString(PairKeyRequestDto.serializer(), PairKeyRequestDto(pairingKey, clientName)), PairResponseDto.serializer(), auth = false)
+    suspend fun pairWithKey(pairingKey: String, clientName: String, clientId: String? = null): Outcome<PairResponseDto> =
+        post("pair", if (clientId == null) json.encodeToString(PairKeyRequestDto.serializer(), PairKeyRequestDto(pairingKey, clientName))
+            else json.encodeToString(PairKeyIdRequestDto.serializer(), PairKeyIdRequestDto(pairingKey, clientName, clientId)),
+            PairResponseDto.serializer(), auth = false)
 
     suspend fun unpair(): Outcome<Unit> = send(request("unpair", auth = true).post(EMPTY_BODY).build()) { }
 
@@ -130,6 +136,16 @@ class BridgeClient(
     suspend fun activity(id: String): Outcome<ActivityDetail> {
         if (!ACTIVITY_ID.matches(id)) return Outcome.Failure("NOT_FOUND")
         return get("activities/$id", ActivityDetailDto.serializer()).map(LibraryMapping::activity)
+    }
+
+    /** P15: GTBike V game options (GTBikeVConfig.ini allowlist). Older bridges answer NOT_FOUND. */
+    suspend fun gameOptions(): Outcome<GameOptionsDoc> = get("mod-config", GameOptionsDocDto.serializer()).map(GameOptionsMapping::doc)
+
+    /** P15: writes [changes] (wire names and values) if the file still has [revision] and GTA V is closed. */
+    suspend fun saveGameOptions(revision: String, changes: Map<String, Any>): Outcome<GameOptionsDoc> {
+        if (changes.isEmpty()) return Outcome.Failure("INVALID_REQUEST")
+        val body = json.encodeToString(JsonObject.serializer(), GameOptionsMapping.request(revision, changes))
+        return post("mod-config", body, GameOptionsDocDto.serializer(), auth = true).map(GameOptionsMapping::doc)
     }
 
     suspend fun gameMap(): Outcome<GameMap> = get("map", MapDto.serializer()).map(WorldMapping::map)

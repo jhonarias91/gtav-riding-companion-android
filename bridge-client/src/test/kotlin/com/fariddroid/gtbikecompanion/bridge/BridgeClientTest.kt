@@ -53,6 +53,17 @@ class BridgeClientTest {
         assertEquals(setOf("pairingKey", "clientName"), body.keys)
     }
 
+    @Test fun identifiedQrPairingSendsStableIdWithoutAuthorization() = runBlocking {
+        ok("""{"token":"${"k".repeat(43)}","expiresAtUtc":"2026-12-05T10:00:00.000Z","bridgeId":"bridge-1"}""")
+        val id = "a".repeat(32)
+        assertTrue(client.pairWithKey("Q".repeat(22), "Pixel 8", id) is Outcome.Success)
+        val request = server.takeRequest()
+        assertNull(request.headers["Authorization"])
+        val body = Json.parseToJsonElement(request.body!!.utf8()).jsonObject
+        assertEquals(setOf("pairingKey", "clientName", "clientId"), body.keys)
+        assertEquals("\"$id\"", body["clientId"].toString())
+    }
+
     @Test fun liveStateMapsUnitsSensorsAndRoute() = runBlocking {
         ok(fixture("valid/state_live_cycling.json"))
         val snapshot = (client.state() as Outcome.Success).value

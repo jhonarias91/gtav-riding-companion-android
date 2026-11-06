@@ -5,6 +5,7 @@ import com.fariddroid.gtbikecompanion.core.model.ActivityPage
 import com.fariddroid.gtbikecompanion.core.model.AdapterLayer
 import com.fariddroid.gtbikecompanion.core.model.BridgeInfo
 import com.fariddroid.gtbikecompanion.core.model.GameMap
+import com.fariddroid.gtbikecompanion.core.model.GameOptionsDoc
 import com.fariddroid.gtbikecompanion.core.model.RidersBoard
 import com.fariddroid.gtbikecompanion.core.model.DeviceRoles
 import com.fariddroid.gtbikecompanion.core.model.FitFile
@@ -139,6 +140,8 @@ class BridgeControlRepository(private val client: BridgeClient) : ControlReposit
     override suspend fun mapImage(assetId: String): Outcome<ByteArray> = client.mapImage(assetId)
     override suspend fun riders(): Outcome<RidersBoard> = client.riders()
     override suspend fun bridgeInfo(): Outcome<BridgeInfo> = client.bridgeInfo()
+    override suspend fun gameOptions(): Outcome<GameOptionsDoc> = client.gameOptions()
+    override suspend fun saveGameOptions(revision: String, changes: Map<String, Any>): Outcome<GameOptionsDoc> = client.saveGameOptions(revision, changes)
 
     override suspend fun downloadFit(id: String): Outcome<FitFile> = when (val detail = client.activity(id)) {
         is Outcome.Failure -> detail
