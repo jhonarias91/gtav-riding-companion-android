@@ -6,7 +6,7 @@ A native Android companion for the [GTBike V](https://www.gtbikev.com/) cycling 
 
 The PC side (Node.js bridge and GTA V adapter) is in a separate repository: **[gtav-riding-companion-bridge](https://github.com/jhonarias91/gtav-riding-companion-bridge)**. This app needs it to talk to the game; set it up first by following [its README](https://github.com/jhonarias91/gtav-riding-companion-bridge#readme).
 
-> **Coming next:** the app will be published for Android, so you won't need to build it yourself, and the bridge will ship as a Windows executable (`.exe`), so you won't need Node.js. Until then, build the app as described below.
+[Download APK](https://github.com/jhonarias91/gtav-riding-companion-android/releases/download/v0.6.0-p13/gtav-riding-companion.apk) · [View release v0.6.0-p13](https://github.com/jhonarias91/gtav-riding-companion-android/releases/tag/v0.6.0-p13) · [Build from the release ZIP](#build-from-the-release-zip)
 
 > Unofficial community project. Not affiliated with GTBike V, Rockstar Games, Zwift or Garmin.
 
@@ -42,13 +42,7 @@ Manual ERG control, target power and workout pause, skip or end are intentionall
    node bridge/start-v1.mjs
    ```
 
-2. Build and install the debug app on a phone connected by USB, with USB debugging enabled. From this repository:
-
-   ```powershell
-   .\gradlew.bat :app:installDebug
-   ```
-
-   On macOS or Linux, use `./gradlew :app:installDebug`.
+2. Install the published APK on your phone. [Android installation steps](https://github.com/jhonarias91/gtav-riding-companion-bridge/blob/HEAD/README.md#install-the-android-app)
 
 3. Open the app and, on **Connect to your PC**, tap **Scan QR code** and point the camera at the bridge window. The QR carries the address, port, key fingerprint, bridge identity and a one-time pairing key, so the phone verifies the bridge and pairs by itself. Each QR pairs one phone; press Enter in the bridge window to show a new one.
 
@@ -74,6 +68,8 @@ The app never requests `BLUETOOTH_CONNECT` and never connects to sensors. The QR
 
 ## Build and test
 
+To install a debug build over USB, enable USB debugging on the phone and run `.\gradlew.bat :app:installDebug` on Windows or `./gradlew :app:installDebug` on macOS or Linux.
+
 ```powershell
 .\gradlew.bat :app:assembleDebug                                 # debug APK in app\build\outputs\apk\debug
 .\gradlew.bat :core:test :bridge-client:test :app:testDebugUnitTest   # JVM tests
@@ -85,9 +81,21 @@ The app never requests `BLUETOOTH_CONNECT` and never connects to sensors. The QR
 
 The bridge-client tests encode commands and compare them with the JSON fixtures of the bridge contract. They expect [gtav-riding-companion-bridge](https://github.com/jhonarias91/gtav-riding-companion-bridge) to be cloned next to this repository (`../gtav-riding-companion-bridge`). To use another location, pass `-PbridgeRepo=PATH`.
 
+### Build from the release ZIP
+
+<details>
+<summary>Generate APK</summary>
+
+1. On your PC, download the source archive from the release's **Assets** and extract it. [Source code (zip)](https://github.com/jhonarias91/gtav-riding-companion-android/archive/refs/tags/v0.6.0-p13.zip)
+2. Open the extracted folder containing `settings.gradle.kts` in Android Studio. Install **Android SDK Platform 37** in **Tools → SDK Manager** and sync the project with Gradle. Gradle can download JDK 25 for its daemon and JDK 17 for the JVM modules.
+3. Choose **Build → Generate Signed Bundle / APK → APK** and select the `app` module. Select your keystore and key alias or create them with **Create new**. To update an installed copy of the app, sign with the same key used for that copy.
+4. Choose the `release` build variant and a destination folder, then click **Create**. Use **Locate** to find the signed APK.
+
+</details>
+
 ### Release signing
 
-Release builds are signed only when `keystore.properties` exists in the repository root. Never commit it; it is ignored by `.gitignore`.
+To sign a release APK from the command line, create `keystore.properties` in the project root. Keep this file local. It is ignored by `.gitignore`.
 
 ```properties
 storeFile=..\\keys\\gtbike-release.jks
@@ -128,7 +136,6 @@ Stack: Kotlin 2.2, AGP 9.5, Compose BOM 2026.09, Hilt 2.60, OkHttp 5.5, kotlinx.
 
 ## Roadmap
 
-- **Published Android app.** Install it directly instead of building it from source.
 - **Windows executable (`.exe`) for the bridge.** Run the PC side without installing Node.js. See the [bridge repository](https://github.com/jhonarias91/gtav-riding-companion-bridge).
 
 ## License

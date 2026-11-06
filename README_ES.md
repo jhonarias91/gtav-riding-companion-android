@@ -6,7 +6,7 @@ App nativa de Android que acompaña al mod de ciclismo [GTBike V](https://www.gt
 
 La parte del PC (puente de Node.js y adaptador de GTA V) está en un repositorio aparte: **[gtav-riding-companion-bridge](https://github.com/jhonarias91/gtav-riding-companion-bridge)**. La app lo necesita para comunicarse con el juego; configúralo primero siguiendo [su README](https://github.com/jhonarias91/gtav-riding-companion-bridge/blob/HEAD/README_ES.md).
 
-> **Próximamente:** la app se publicará para Android, para que no tengas que compilarla, y el puente tendrá un ejecutable de Windows (`.exe`), para que no necesites Node.js. Mientras tanto, compila la app como se explica abajo.
+[Descargar APK](https://github.com/jhonarias91/gtav-riding-companion-android/releases/download/v0.6.0-p13/gtav-riding-companion.apk) · [Ver release v0.6.0-p13](https://github.com/jhonarias91/gtav-riding-companion-android/releases/tag/v0.6.0-p13) · [Compila desde el ZIP del release](#compila-desde-el-zip-del-release)
 
 > Proyecto comunitario no oficial y sin afiliación con GTBike V, Rockstar Games, Zwift ni Garmin.
 
@@ -42,13 +42,7 @@ La app no incluye a propósito el control manual del modo ERG, la potencia objet
    node bridge/start-v1.mjs
    ```
 
-2. Compila e instala la app de depuración en un teléfono conectado por USB, con la depuración USB activada. Desde este repositorio:
-
-   ```powershell
-   .\gradlew.bat :app:installDebug
-   ```
-
-   En macOS o Linux, usa `./gradlew :app:installDebug`.
+2. Instala el APK publicado en el teléfono. [Pasos de instalación en Android](https://github.com/jhonarias91/gtav-riding-companion-bridge/blob/HEAD/README_ES.md#instala-la-app-de-android)
 
 3. Abre la app y, en **Conecta con tu PC**, toca **Escanear código QR** y apunta la cámara a la ventana del puente. El QR lleva la dirección, el puerto, la huella de la clave, la identidad del puente y una clave de emparejamiento de un solo uso, así que el teléfono verifica el puente y se empareja solo. Cada QR empareja un teléfono; pulsa Enter en la ventana del puente para mostrar uno nuevo.
 
@@ -74,6 +68,8 @@ La app nunca pide `BLUETOOTH_CONNECT` ni se conecta a los sensores. El escáner 
 
 ## Compilación y pruebas
 
+Para instalar una versión de depuración por USB, activa la depuración USB en el teléfono y ejecuta `.\gradlew.bat :app:installDebug` en Windows o `./gradlew :app:installDebug` en macOS o Linux.
+
 ```powershell
 .\gradlew.bat :app:assembleDebug                                 # APK de depuración en app\build\outputs\apk\debug
 .\gradlew.bat :core:test :bridge-client:test :app:testDebugUnitTest   # pruebas de JVM
@@ -85,9 +81,21 @@ La app nunca pide `BLUETOOTH_CONNECT` ni se conecta a los sensores. El escáner 
 
 Las pruebas de `bridge-client` codifican comandos y los comparan con los fixtures JSON del contrato del puente. Esperan que [gtav-riding-companion-bridge](https://github.com/jhonarias91/gtav-riding-companion-bridge) esté clonado junto a este repositorio (`../gtav-riding-companion-bridge`). Para usar otra ubicación, pasa `-PbridgeRepo=RUTA`.
 
+### Compila desde el ZIP del release
+
+<details>
+<summary>Generate APK</summary>
+
+1. En el PC, descarga el código fuente desde **Assets** en el release y descomprime el archivo. [Source code (zip)](https://github.com/jhonarias91/gtav-riding-companion-android/archive/refs/tags/v0.6.0-p13.zip)
+2. Abre en Android Studio la carpeta extraída que contiene `settings.gradle.kts`. Instala **Android SDK Platform 37** en **Tools → SDK Manager** y sincroniza el proyecto con Gradle. Gradle puede descargar JDK 25 para su daemon y JDK 17 para los módulos JVM.
+3. Elige **Build → Generate Signed Bundle / APK → APK** y selecciona el módulo `app`. Selecciona tu almacén de claves y el alias de la clave o créalos con **Create new**. Para actualizar una app ya instalada, firma con la misma clave que se usó para esa instalación.
+4. Elige la variante `release` y una carpeta de destino, y pulsa **Create**. Usa **Locate** para encontrar el APK firmado.
+
+</details>
+
 ### Firma de la release
 
-Las compilaciones release solo se firman si existe `keystore.properties` en la raíz del repositorio. Nunca lo subas al repositorio; `.gitignore` ya lo excluye.
+Para firmar un APK de release desde la consola, crea `keystore.properties` en la raíz del proyecto. Guarda este archivo en tu equipo. `.gitignore` lo excluye del repositorio.
 
 ```properties
 storeFile=..\\keys\\gtbike-release.jks
@@ -128,7 +136,6 @@ Tecnologías: Kotlin 2.2, AGP 9.5, Compose BOM 2026.09, Hilt 2.60, OkHttp 5.5, k
 
 ## Próximos pasos
 
-- **App de Android publicada.** Podrás instalarla directamente en lugar de compilarla desde el código fuente.
 - **Ejecutable de Windows (`.exe`) para el puente.** Podrás ejecutar la parte del PC sin instalar Node.js. Consulta el [repositorio del puente](https://github.com/jhonarias91/gtav-riding-companion-bridge).
 
 ## Licencia
