@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- API < 31. The pairing (PC address, bridge identity and the Keystore-encrypted token) never leaves the
+     phone: the Keystore key is not restored on another device, and a restored pairing would point at a PC
+     the user did not verify on that device. App preferences (theme, units) may be backed up. -->
+<full-backup-content>
+    <exclude domain="file" path="datastore/pairing.preferences_pb" />
+</full-backup-content>

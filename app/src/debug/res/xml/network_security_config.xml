@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug builds only: the http-dev bridge (increment 2a) on a private LAN. Overrides the release file.
+     Android cannot scope cleartext to IP ranges, so the app itself only accepts IPv4 literals and private
+     addresses are the user's own PC; release builds never contain this file. -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

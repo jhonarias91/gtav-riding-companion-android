@@ -1,0 +1,11 @@
+# Normalize text to LF in the repository; Windows checkouts get CRLF via core.autocrlf.
+* text=auto
+
+# Shell script must stay LF to run on macOS/Linux/CI; batch files stay CRLF.
+gradlew text eol=lf
+*.bat text eol=crlf
+
+# Binaries
+*.jar binary
+*.webp binary
+*.png binary

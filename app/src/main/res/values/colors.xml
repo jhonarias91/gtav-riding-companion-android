@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Window background before Compose draws (avoids a white flash). Mirrors ui/theme/Color.kt. -->
+    <color name="window_background">#FFFBF6F1</color>
+    <color name="nav_icon_tint">#FF1C1426</color>
+</resources>

@@ -1,0 +1,29 @@
+# Gradle / Kotlin
+.gradle/
+.kotlin/
+build/
+/captures
+.externalNativeBuild
+.cxx
+
+# Machine-specific (SDK path)
+local.properties
+
+# Android Studio: keep nothing user-specific
+*.iml
+.idea/
+
+# Build outputs and signing material (never commit keystores or their passwords)
+*.apk
+*.aab
+*.ap_
+/app/release/
+/app/debug/
+mapping.txt
+*.jks
+*.keystore
+keystore.properties
+
+# OS
+.DS_Store
+Thumbs.db

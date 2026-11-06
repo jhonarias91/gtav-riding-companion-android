@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Only the cache folder that holds the FIT being shared. -->
+<paths>
+    <cache-path name="fit" path="fit/" />
+</paths>
